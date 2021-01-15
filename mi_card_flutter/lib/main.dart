@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
                     size: 25.0,
                   ),
                   title: Text(
+                    
                     '+82 123 456 789',
                     style: TextStyle(
                       fontFamily: 'SourceSansPro',
