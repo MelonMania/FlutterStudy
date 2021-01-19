@@ -1,9 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+
 
 QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
+
 
 class Quizzler extends StatelessWidget {
   @override
@@ -67,7 +70,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  quizBrain.checkTrue();
+                  quizBrain.checkAnswer(true);
                   quizBrain.nextQuestion();
                 });
               },
@@ -88,7 +91,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  quizBrain.checkFalse();
+                  quizBrain.checkAnswer(false);
                   quizBrain.nextQuestion();
                 });
               },
@@ -101,8 +104,3 @@ class _QuizPageState extends State<QuizPage> {
   }
 }
 
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

@@ -1,6 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'main.dart';
 import 'question.dart';
 
 
@@ -57,44 +58,38 @@ class QuizBrain {
     );
   }
 
-  void checkTrue(){
-    if(_questionAll[_questionNumber].questionAnswer==true) {
-      scoreKeeper.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
+  void checkAnswer(bool userPickedAnswer){
+
+    bool finish = isFinished();
+    if(finish == true){
+      Alert(
+        title: 'Finished',
+        desc: 'Quiz is all done',
+      ).show();
+      reset();
+      scoreKeeper = [];
     }
     else{
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
+      bool realAnswer = _questionAll[_questionNumber].questionAnswer;
+      if( realAnswer == userPickedAnswer) {
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      }
+      else{
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
     }
-
   }
-  void checkFalse(){
-    if(_questionAll[_questionNumber].questionAnswer==false) {
-      scoreKeeper.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
-    }
-    else{
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
 
-  }
 
   String questionText(){
     return _questionAll[_questionNumber].questionText;
@@ -104,4 +99,14 @@ class QuizBrain {
     return _questionAll[_questionNumber].questionAnswer;
   }
 
+  bool isFinished(){
+    if(_questionNumber >= _questionAll.length - 1){
+      return true;
+    }
+    else return false;
+  }
+
+  void reset(){
+    _questionNumber = 0;
+  }
 }
