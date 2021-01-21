@@ -8,6 +8,7 @@ const bottomBarHeight = 60.0;
 const activeCardColor = Color(0xFF1D1F33);
 const inactiveCardColor = Color(0xFF111328);
 const bottomColor = Color(0xFFEB1555);
+enum GenderType {male, female}
 
 class InputPage extends StatefulWidget {
   @override
@@ -17,26 +18,6 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Color maleColor = inactiveCardColor;
   Color femaleColor = inactiveCardColor;
-
-  void updateColor(int gender) {
-    if (gender == 1) {
-      if (maleColor == inactiveCardColor) {
-        maleColor = activeCardColor;
-        femaleColor = inactiveCardColor;
-      } else {
-        maleColor = inactiveCardColor;
-        femaleColor = activeCardColor;
-      }
-    } else {
-      if (femaleColor == inactiveCardColor) {
-        femaleColor = activeCardColor;
-        maleColor = inactiveCardColor;
-      } else {
-        femaleColor = inactiveCardColor;
-        maleColor = activeCardColor;
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +33,8 @@ class _InputPageState extends State<InputPage> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      updateColor(1);
+                      maleColor == inactiveCardColor ? maleColor = activeCardColor: femaleColor = inactiveCardColor;
+                      maleColor == activeCardColor ? femaleColor = inactiveCardColor: maleColor = activeCardColor;
                     });
                   },
                   child: ReusableCard(
@@ -65,7 +47,8 @@ class _InputPageState extends State<InputPage> {
                 child: GestureDetector(
                   onTap: (){
                     setState(() {
-                      updateColor(2);
+                      femaleColor == inactiveCardColor ? femaleColor = activeCardColor: maleColor = inactiveCardColor;
+                      femaleColor == activeCardColor ? maleColor = inactiveCardColor: femaleColor = activeCardColor;
                     });
                   },
                   child: ReusableCard(
