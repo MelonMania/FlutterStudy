@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'icon_content.dart';
 import 'constant_list.dart';
+import 'round_button.dart';
 
 enum GenderType { male, female }
 
@@ -15,6 +16,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
   int height = 180;
+  int weight = 70;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -81,18 +84,28 @@ class _InputPageState extends State<InputPage> {
                       ),
                     ],
                   ),
-                  Slider(
-                    value: height.toDouble(),
-                    min: 0,
-                    max: 200,
-                    activeColor: Color(0xFFEB1555),
-                    inactiveColor: Color(0xFF8D8E98),
-                    label: height.toString(),
-                    onChanged: (double value){
-                      setState(() {
-                        height = value.round();
-                      });
-                    },
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      thumbColor: Color(0xFFEB1555),
+                      thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 26.0),
+                      overlayColor: Color(0x29EB1555),
+                    ),
+                    child: Slider(
+                      value: height.toDouble(),
+                      min: 0,
+                      max: 200,
+                      inactiveColor: Color(0xFF8D8E98),
+                      label: height.toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          height = value.round();
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -105,18 +118,84 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: ReusableCard(
                       Coulor: kActiveCardColor,
-                      cardChild: Text(
-                        '77',
-                        style: kNumberTextStyle,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundButton(
+                                icon: FontAwesomeIcons.minus,
+                                calc: (){
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              RoundButton(
+                                icon: FontAwesomeIcons.plus,
+                                  calc: (){
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
                       Coulor: kActiveCardColor,
-                      cardChild: Text(
-                        '77',
-                        style: kNumberTextStyle,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'AGE',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundButton(
+                                icon: FontAwesomeIcons.minus,
+                                calc: (){
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              RoundButton(
+                                icon: FontAwesomeIcons.plus,
+                                calc: (){
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -124,7 +203,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Container(
             color: kBottomColor,
-            margin: EdgeInsets.only(top: 10.0),
+            margin: EdgeInsets.only(top: 8.0),
             width: double.infinity,
             height: kBottomBarHeight,
           ),
@@ -133,3 +212,5 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
+
+
