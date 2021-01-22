@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kBottomBarHeight = 60.0;
+const kBottomBarHeight = 45.0;
 const kIconSize = 80.0;
 
 const kActiveCardColor = Color(0xFF1D1F33);

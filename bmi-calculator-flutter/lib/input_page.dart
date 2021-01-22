@@ -91,7 +91,7 @@ class _InputPageState extends State<InputPage> {
                       thumbShape:
                           RoundSliderThumbShape(enabledThumbRadius: 15.0),
                       overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 26.0),
+                          RoundSliderOverlayShape(overlayRadius: 26),
                       overlayColor: Color(0x29EB1555),
                     ),
                     child: Slider(
