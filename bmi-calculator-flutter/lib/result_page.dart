@@ -24,6 +24,7 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double result = calcBMI(height, weight);
+    result < 18.5 ? state = 'THIN' : result < 23 ? state = 'NORMAL' : state = 'FAT';
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('BMI CALCULATOR')),
@@ -50,7 +51,7 @@ class ResultPage extends StatelessWidget {
                     child: Container(
                       margin : EdgeInsets.all(20.0),
                       child: Text(
-                        'NORMAL',
+                        state,
                         style: kStateTextStyle,
                       ),
                     ),
