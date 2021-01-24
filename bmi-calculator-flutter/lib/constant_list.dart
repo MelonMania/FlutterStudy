@@ -15,5 +15,6 @@ const kResultNumberTextStyle = TextStyle(fontSize: 70.0, fontWeight: FontWeight.
 const kBottomTextStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 20.0, color: Colors.white);
 const kResultTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize:30.0);
 const kStateTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.green);
+const kBodyTextStyle = TextStyle(fontSize: 22.0);
 
 

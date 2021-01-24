@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'constant_list.dart';
+import '../constant_list.dart';
 
 
 class BottomBar extends StatelessWidget {
@@ -7,7 +7,7 @@ class BottomBar extends StatelessWidget {
   final String text;
   final Function press;
 
-  BottomBar({this.text, this.press});
+  BottomBar({@required this.text, @required this.press});
 
   @override
   Widget build(BuildContext context) {

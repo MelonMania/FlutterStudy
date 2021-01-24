@@ -1,33 +1,26 @@
-import 'package:bmi_calculator/result_page.dart';
+import 'file:///G:/AndroidStudio/bmi-calculator-flutter/lib/screens/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'icon_content.dart';
-import 'constant_list.dart';
-import 'round_button.dart';
-import 'bottom_bar.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import '../components/icon_content.dart';
+import '../constant_list.dart';
+import '../components/round_button.dart';
+import '../components/bottom_bar.dart';
+import 'package:bmi_calculator/caculate_bmi.dart';
 
 enum GenderType { male, female }
 
-class Values{
-  int height = 170;
-  int weight = 70;
-  int age = 20;
-
-  int returnHeight() => height;
-  int returnWeight() => weight;
-}
-
 class InputPage extends StatefulWidget {
-
   @override
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
-  Values values = Values();
+  int height = 170;
+  int weight = 70;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +78,7 @@ class _InputPageState extends State<InputPage> {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: <Widget>[
                       Text(
-                        values.height.toString(),
+                        height.toString(),
                         style: kNumberTextStyle,
                       ),
                       Text(
@@ -100,19 +93,18 @@ class _InputPageState extends State<InputPage> {
                       thumbColor: Color(0xFFEB1555),
                       thumbShape:
                           RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 26),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 26),
                       overlayColor: Color(0x29EB1555),
                     ),
                     child: Slider(
-                      value: values.height.toDouble(),
+                      value: height.toDouble(),
                       min: 0,
                       max: 200,
                       inactiveColor: Color(0xFF8D8E98),
-                      label: values.height.toString(),
+                      label: height.toString(),
                       onChanged: (double value) {
                         setState(() {
-                          values.height = value.round();
+                          height = value.round();
                         });
                       },
                     ),
@@ -136,7 +128,7 @@ class _InputPageState extends State<InputPage> {
                             style: kLabelTextStyle,
                           ),
                           Text(
-                            values.weight.toString(),
+                            weight.toString(),
                             style: kNumberTextStyle,
                           ),
                           Row(
@@ -144,9 +136,9 @@ class _InputPageState extends State<InputPage> {
                             children: <Widget>[
                               RoundButton(
                                 icon: FontAwesomeIcons.minus,
-                                button: (){
+                                button: () {
                                   setState(() {
-                                    values.weight--;
+                                    weight--;
                                   });
                                 },
                               ),
@@ -155,11 +147,11 @@ class _InputPageState extends State<InputPage> {
                               ),
                               RoundButton(
                                 icon: FontAwesomeIcons.plus,
-                                  button: (){
-                                    setState(() {
-                                      values.weight++;
-                                    });
-                                  },
+                                button: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
                               ),
                             ],
                           ),
@@ -178,7 +170,7 @@ class _InputPageState extends State<InputPage> {
                             style: kLabelTextStyle,
                           ),
                           Text(
-                            values.age.toString(),
+                            age.toString(),
                             style: kNumberTextStyle,
                           ),
                           Row(
@@ -186,9 +178,9 @@ class _InputPageState extends State<InputPage> {
                             children: <Widget>[
                               RoundButton(
                                 icon: FontAwesomeIcons.minus,
-                                button: (){
+                                button: () {
                                   setState(() {
-                                    values.age--;
+                                    age--;
                                   });
                                 },
                               ),
@@ -197,9 +189,9 @@ class _InputPageState extends State<InputPage> {
                               ),
                               RoundButton(
                                 icon: FontAwesomeIcons.plus,
-                                button: (){
+                                button: () {
                                   setState(() {
-                                    values.age++;
+                                    age++;
                                   });
                                 },
                               ),
@@ -214,11 +206,17 @@ class _InputPageState extends State<InputPage> {
           BottomAppBar(
             child: BottomBar(
               text: 'CALCULATE',
-              press: (){
+              press: () {
                 setState(() {
+                  CaculateBMI calc =
+                      CaculateBMI(height: height, weight: weight);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ResultPage(values.height, values.weight)),
+                    MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                            bmiResult: calc.result(),
+                            state: calc.bodyState(),
+                            message: calc.messageToPerson())),
                   );
                 });
               },
@@ -228,8 +226,4 @@ class _InputPageState extends State<InputPage> {
       ),
     );
   }
-
 }
-
-
-
