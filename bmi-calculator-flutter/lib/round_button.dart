@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
   final IconData icon;
-  final Function calc;
-  RoundButton({@required this.icon, @required this.calc});
+  final Function button;
+  RoundButton({@required this.icon, @required this.button});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class RoundButton extends StatelessWidget {
         icon,
         color: Colors.white,
       ),
-      onPressed: calc,
+      onPressed: button,
     );
   }
 }

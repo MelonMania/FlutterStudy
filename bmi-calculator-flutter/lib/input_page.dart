@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,19 +6,28 @@ import 'reusable_card.dart';
 import 'icon_content.dart';
 import 'constant_list.dart';
 import 'round_button.dart';
+import 'bottom_bar.dart';
 
 enum GenderType { male, female }
 
+class Values{
+  int height = 170;
+  int weight = 70;
+  int age = 20;
+
+  int returnHeight() => height;
+  int returnWeight() => weight;
+}
+
 class InputPage extends StatefulWidget {
+
   @override
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
-  int height = 180;
-  int weight = 70;
-  int age = 20;
+  Values values = Values();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +85,7 @@ class _InputPageState extends State<InputPage> {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: <Widget>[
                       Text(
-                        height.toString(),
+                        values.height.toString(),
                         style: kNumberTextStyle,
                       ),
                       Text(
@@ -95,14 +105,14 @@ class _InputPageState extends State<InputPage> {
                       overlayColor: Color(0x29EB1555),
                     ),
                     child: Slider(
-                      value: height.toDouble(),
+                      value: values.height.toDouble(),
                       min: 0,
                       max: 200,
                       inactiveColor: Color(0xFF8D8E98),
-                      label: height.toString(),
+                      label: values.height.toString(),
                       onChanged: (double value) {
                         setState(() {
-                          height = value.round();
+                          values.height = value.round();
                         });
                       },
                     ),
@@ -126,7 +136,7 @@ class _InputPageState extends State<InputPage> {
                             style: kLabelTextStyle,
                           ),
                           Text(
-                            weight.toString(),
+                            values.weight.toString(),
                             style: kNumberTextStyle,
                           ),
                           Row(
@@ -134,9 +144,9 @@ class _InputPageState extends State<InputPage> {
                             children: <Widget>[
                               RoundButton(
                                 icon: FontAwesomeIcons.minus,
-                                calc: (){
+                                button: (){
                                   setState(() {
-                                    weight--;
+                                    values.weight--;
                                   });
                                 },
                               ),
@@ -145,9 +155,9 @@ class _InputPageState extends State<InputPage> {
                               ),
                               RoundButton(
                                 icon: FontAwesomeIcons.plus,
-                                  calc: (){
+                                  button: (){
                                     setState(() {
-                                      weight++;
+                                      values.weight++;
                                     });
                                   },
                               ),
@@ -168,7 +178,7 @@ class _InputPageState extends State<InputPage> {
                             style: kLabelTextStyle,
                           ),
                           Text(
-                            age.toString(),
+                            values.age.toString(),
                             style: kNumberTextStyle,
                           ),
                           Row(
@@ -176,9 +186,9 @@ class _InputPageState extends State<InputPage> {
                             children: <Widget>[
                               RoundButton(
                                 icon: FontAwesomeIcons.minus,
-                                calc: (){
+                                button: (){
                                   setState(() {
-                                    age--;
+                                    values.age--;
                                   });
                                 },
                               ),
@@ -187,9 +197,9 @@ class _InputPageState extends State<InputPage> {
                               ),
                               RoundButton(
                                 icon: FontAwesomeIcons.plus,
-                                calc: (){
+                                button: (){
                                   setState(() {
-                                    age++;
+                                    values.age++;
                                   });
                                 },
                               ),
@@ -201,16 +211,25 @@ class _InputPageState extends State<InputPage> {
                   ),
                 ]),
           ),
-          Container(
-            color: kBottomColor,
-            margin: EdgeInsets.only(top: 8.0),
-            width: double.infinity,
-            height: kBottomBarHeight,
+          BottomAppBar(
+            child: BottomBar(
+              text: 'CALCULATE',
+              press: (){
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ResultPage(values.height, values.weight)),
+                  );
+                });
+              },
+            ),
           ),
         ],
       ),
     );
   }
+
 }
+
 
 
