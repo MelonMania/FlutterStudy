@@ -1,54 +1,53 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:clima/services/networking.dart';
 import 'package:clima/services/location.dart';
+
 import '../services/location.dart';
-import 'package:http/http.dart' as http;
+import '../services/networking.dart';
+import '../services/weather.dart';
+import '../services/weather.dart';
+import 'location_screen.dart';
+import 'package:clima/services/weather.dart';
+
+import 'location_screen.dart';
+import 'location_screen.dart';
+import 'location_screen.dart';
+
+const apiKey = '664f067cac70f1ddb9a88dd5fb8b6d3e';
 
 class LoadingScreen extends StatefulWidget {
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
+  double latitude;
+  double longitude;
+  var weatherData;
+
   @override
   void initState() {
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
-  void getLocation() async{
+  void getLocationData() async{
     Location location = Location();
     await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longitude);
+    latitude = location.latitude;
+    longitude = location.longitude;
+    Network network = Network('http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+
+    weatherData = await network.getData();
   }
 
-  void getData() async{
-    http.Response response = await http.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=664f067cac70f1ddb9a88dd5fb8b6d3e');
-
-    if(response.statusCode == 200){
-      String data = response.body;
-      var decodedData = jsonDecode(data);
-
-      double temp = decodedData['main']['temp'];
-      int id = decodedData['weather'][0]['id'];
-      String cityName = decodedData['name'];
-
-      print(temp);
-      print(id);
-      print(cityName);
-    }else{
-      print(response.statusCode);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    getData();
-    return Scaffold();
+    return LocationScreen(weatherData);
   }
 }
