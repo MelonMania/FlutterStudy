@@ -22,7 +22,7 @@ class CaculateBMI{
   }
 
   String messageToPerson(){
-    _bmi < 18.5 ? _state = 'You must eat more & more' : _bmi < 23 ? _state = 'Your body is perfect. Everyone wants your body' : _state = 'You have to excersice. Go out to GYM!!!';
+    _bmi < 18.5 ? _state = 'You must eat more & more' : _bmi < 23 ? _state = 'Your body is perfect. Everyone wants your body' : _state = 'You have to exercise. Go to GYM!!!';
     return _state;
   }
 }
