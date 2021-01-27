@@ -3,17 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/location.dart';
-
-import '../services/location.dart';
-import '../services/networking.dart';
-import '../services/weather.dart';
-import '../services/weather.dart';
 import 'location_screen.dart';
-import 'package:clima/services/weather.dart';
-
-import 'location_screen.dart';
-import 'location_screen.dart';
-import 'location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const apiKey = '664f067cac70f1ddb9a88dd5fb8b6d3e';
 
@@ -43,11 +34,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Network network = Network('http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
     weatherData = await network.getData();
+
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return LocationScreen(weatherData);
+    }));
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return LocationScreen(weatherData);
+    return Scaffold(
+      body: Center(
+        child: SpinKitFadingFour(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
+    );
   }
 }
