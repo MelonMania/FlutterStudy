@@ -12,7 +12,7 @@ void performTasks() async {
 }
 
 void task1() {
-  String result = 'task 1 data';
+  String result = 'task 1 data!';
   print('Task 1 complete');
 }
 
