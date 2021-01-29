@@ -4,6 +4,7 @@ import 'package:clima/screens/loading_screen.dart';
 import 'package:clima/services/weather.dart';
 
 import '../services/weather.dart';
+import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
 
@@ -17,9 +18,11 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
 
-  double temperature;
-  int condition;
+  int temperature;
+  String weatherIcon;
+  String weatherMessage;
   String cityName;
+  WeatherModel weatherModel = WeatherModel();
 
   @override
   void initState() {
@@ -28,15 +31,18 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData){
-    temperature = weatherData['main']['temp']-273.15;
-    condition = weatherData['weather'][0]['id'];
-    cityName = weatherData['name'];
+    setState(() {
+      temperature = weatherData['main']['temp'];
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      weatherMessage = weatherModel.getMessage(temperature);
+      cityName = weatherData['name'];
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-  WeatherModel weatherModel = WeatherModel();
   
     return Scaffold(
       body: Container(
@@ -78,11 +84,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      temperature.toString(),
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      weatherModel.getWeatherIcon(condition),
+                      weatherIcon,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -91,7 +97,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  weatherModel.getMessage(temperature.round()),
+                  '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
