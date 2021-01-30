@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
-import 'package:clima/screens/loading_screen.dart';
 import 'package:clima/services/weather.dart';
-
 import '../services/weather.dart';
-import '../services/weather.dart';
+import 'city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
-
   final locationWeather;
 
   LocationScreen(this.locationWeather);
@@ -17,7 +14,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-
   int temperature;
   String weatherIcon;
   String weatherMessage;
@@ -30,20 +26,25 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
-  void updateUI(dynamic weatherData){
+  void updateUI(dynamic weatherData) {
     setState(() {
-      temperature = weatherData['main']['temp'];
+      if (weatherData == null) {
+        temperature = 0;
+        weatherIcon = 'Error';
+        weatherMessage = 'Unable to get weather data in';
+        cityName = '';
+      }
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
       var condition = weatherData['weather'][0]['id'];
       weatherIcon = weatherModel.getWeatherIcon(condition);
       weatherMessage = weatherModel.getMessage(temperature);
       cityName = weatherData['name'];
-    });
+    }) ;
   }
-
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -64,14 +65,31 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() async {
+                        var weatherData =
+                            await weatherModel.getLocationWeather();
+                        updateUI(weatherData);
+                      });
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CityScreen();
+                            },
+                          ),
+                        );
+                      });
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
@@ -109,4 +127,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-

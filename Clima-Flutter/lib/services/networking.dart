@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'location.dart';
 import 'dart:convert';
 
 const apiKey = '664f067cac70f1ddb9a88dd5fb8b6d3e';
