@@ -33,6 +33,7 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherIcon = 'Error';
         weatherMessage = 'Unable to get weather data in';
         cityName = '';
+        return;
       }
       double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
@@ -40,7 +41,7 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherIcon = weatherModel.getWeatherIcon(condition);
       weatherMessage = weatherModel.getMessage(temperature);
       cityName = weatherData['name'];
-    }) ;
+    });
   }
 
   @override
@@ -65,12 +66,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {
-                      setState(() async {
-                        var weatherData =
-                            await weatherModel.getLocationWeather();
-                        updateUI(weatherData);
-                      });
+                    onPressed: () async {
+                      var weatherData = await weatherModel.getLocationWeather();
+                      updateUI(weatherData);
                     },
                     child: Icon(
                       Icons.near_me,
@@ -79,8 +77,8 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      setState(() {
-                        Navigator.push(
+                      setState(() async {
+                        var typedName = await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
@@ -88,6 +86,10 @@ class _LocationScreenState extends State<LocationScreen> {
                             },
                           ),
                         );
+                        if(typedName != null){
+                          var weatherData = await weatherModel.getCityWeather(typedName);
+                          updateUI(weatherData);
+                        }
                       });
                     },
                     child: Icon(
