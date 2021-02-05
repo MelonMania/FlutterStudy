@@ -55,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   ),
                 ),
                 Text(
-                  'Flash Chat',
+                  'TEST',
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
