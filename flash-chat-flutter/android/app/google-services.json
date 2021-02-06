@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "169414980826",
+    "project_id": "flash-chat-41a73",
+    "storage_bucket": "flash-chat-41a73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169414980826:android:6223d90b437828578ae1e3",
+        "android_client_info": {
+          "package_name": "co.woojin.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169414980826-7qatmtptejg87jd8iip6g3h1ufo21v33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk2OoCTch5cZGBqX4V5Udp1hrJBY9x0v4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169414980826-7qatmtptejg87jd8iip6g3h1ufo21v33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
