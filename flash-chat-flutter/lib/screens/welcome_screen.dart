@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -20,6 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+    Firebase.initializeApp();
 
     controller = AnimationController(
       duration: Duration(seconds: 1),
