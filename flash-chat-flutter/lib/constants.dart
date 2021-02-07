@@ -33,3 +33,13 @@ const kTextDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kMyMessageBubble = BorderRadius.only(
+    topLeft: Radius.circular(30.0),
+    bottomLeft: Radius.circular(30.0),
+    bottomRight: Radius.circular(30.0));
+
+const kYourMessageBubble = BorderRadius.only(
+    topRight: Radius.circular(30.0),
+    bottomLeft: Radius.circular(30.0),
+    bottomRight: Radius.circular(30.0));
