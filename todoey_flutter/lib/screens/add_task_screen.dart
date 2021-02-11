@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../widgets/task_tile.dart';
-
-List<TaskTile> todoList = [];
-int taskNum = 0;
+import 'package:todoey_flutter/widgets/tasks_list.dart';
+import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final _textControl = TextEditingController();
+  final tileList = TileList();
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,6 @@ class AddTaskScreen extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    taskNum = todoList.length;
-                    todoList.add(TaskTile(
-                      contents: _textControl.text,
-                    ));
                     Navigator.pop(context);
                   },
                   style: ButtonStyle(
