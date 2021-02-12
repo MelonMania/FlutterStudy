@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
+import 'package:todoey_flutter/models/task.dart';
 
 class TasksScreen extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                   ),
                   Text(
-                    '$taskNum Tasks',
+                    'Tasks',
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
