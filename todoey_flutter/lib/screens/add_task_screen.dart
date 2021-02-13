@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/screens/task_screen.dart';
 import '../widgets/task_tile.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
 import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  final Function addTaskWidget;
+
+  AddTaskScreen({this.addTaskWidget});
+
   final _textControl = TextEditingController();
-  final tileList = TileList();
 
   @override
   Widget build(BuildContext context) {
-    bool checked = false;
+    String newTaskTitle;
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -31,15 +35,18 @@ class AddTaskScreen extends StatelessWidget {
                 ),
               ),
               TextField(
-                controller: _textControl,
-                autofocus: true,
-                textAlign: TextAlign.center,
-              ),
+                  controller: _textControl,
+                  autofocus: true,
+                  textAlign: TextAlign.center,
+                  onChanged: (newValue) {
+                    newTaskTitle = _textControl.text;
+                  }),
               SizedBox(
                 height: 15.0,
               ),
               TextButton(
                   onPressed: () {
+                    addTaskWidget(newTaskTitle);
                     Navigator.pop(context);
                   },
                   style: ButtonStyle(

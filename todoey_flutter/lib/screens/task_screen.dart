@@ -9,6 +9,8 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+  List<Task> taskList = [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +43,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                   ),
                   Text(
-                    'Tasks',
+                    '${taskList.length} Tasks',
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -59,7 +61,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0)),
                 ),
-                child: TileList(),
+                child: TileList(taskList),
               ),
             ),
           ],
@@ -71,9 +73,14 @@ class _TasksScreenState extends State<TasksScreen> {
                 context: context,
                 builder: (context) => SingleChildScrollView(
                       child: Container(
-                        padding: EdgeInsets.only(bottom: 20.0),
-                        child: AddTaskScreen(),
-                      ),
+                          padding: EdgeInsets.only(bottom: 20.0),
+                          child: AddTaskScreen(
+                            addTaskWidget: (taskTitle) {
+                              setState(() {
+                                taskList.add(Task(title: taskTitle));
+                              });
+                            },
+                          )),
                     ));
           },
           child: Icon(
